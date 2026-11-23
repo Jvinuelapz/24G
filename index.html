@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B1828">
+<title>Calendario de Adviento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="calendario.css">
+<style>
+  html,body{margin:0;height:100%;background:#0B1828}
+  #app{position:fixed;inset:0}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script src="config.js"></script>
+<script src="calendario.js"></script>
+<script>
+  (function () {
+    var cfg = window.CALENDARIO, app = document.getElementById('app');
+    document.documentElement.lang = cfg.idioma || 'es';
+    if (cfg.idioma === 'en') document.title = 'Advent calendar';
+    var CLAVE = 'adviento-' + cfg.anio;
+    var abiertos = new Set();
+    try { abiertos = new Set(JSON.parse(localStorage.getItem(CLAVE + '-abiertos') || '[]')); } catch (e) {}
+    function guardar() { try { localStorage.setItem(CLAVE + '-abiertos', JSON.stringify(Array.from(abiertos))); } catch (e) {} }
+    function mostrar() {
+      Adviento.calendario(app, cfg, { abiertos: abiertos, alAbrir: guardar });
+    }
+    var dentro = false;
+    try { dentro = localStorage.getItem(CLAVE + '-dentro') === '1'; } catch (e) {}
+    if (dentro || !cfg.contrasena) mostrar();
+    else Adviento.entrada(app, cfg, function () {
+      try { localStorage.setItem(CLAVE + '-dentro', '1'); } catch (e) {}
+      mostrar();
+    });
+  })();
+</script>
+</body>
+</html>

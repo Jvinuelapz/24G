@@ -1,0 +1,560 @@
+/* Calendario de Adviento */
+.adv-root{position:relative;overflow:hidden;background:#0B1828;color:#EEF2F7;font-family:'DM Sans',system-ui,sans-serif;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+.adv-root *,.adv-root *::before,.adv-root *::after{box-sizing:border-box}
+.adv-scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;z-index:2;scrollbar-width:none}
+.adv-scroll::-webkit-scrollbar{display:none}
+
+/* ================= FONDOS ================= */
+.adv-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.adv-hills{position:absolute;left:0;right:0;bottom:0;width:100%;height:120px}
+
+/* Aurora */
+.adv-root.bg-aurora{background:#061220}
+.bg-aurora .adv-bg i{position:absolute;left:-40%;width:180%;height:34%;border-radius:50%;filter:blur(38px);opacity:.5;animation:adv-aur 16s ease-in-out infinite alternate}
+.bg-aurora .adv-bg i:nth-child(1){top:2%;background:linear-gradient(90deg,transparent,#2FD99A 30%,#36C2E0 60%,transparent)}
+.bg-aurora .adv-bg i:nth-child(2){top:16%;background:linear-gradient(90deg,transparent,#8E6CF0 35%,#2FD99A 70%,transparent);animation-duration:21s;animation-delay:-7s;opacity:.38}
+.bg-aurora .adv-bg i:nth-child(3){top:30%;background:linear-gradient(90deg,transparent,#36C2E0 40%,#E06CB4 75%,transparent);animation-duration:25s;animation-delay:-12s;opacity:.25}
+@keyframes adv-aur{0%{transform:translateX(-12%) skewY(-7deg) scaleY(.8)}50%{transform:translateX(4%) skewY(3deg) scaleY(1.15)}100%{transform:translateX(12%) skewY(-3deg) scaleY(.9)}}
+
+/* Chimenea */
+.adv-root.bg-chimenea{background:radial-gradient(130% 60% at 50% 112%,#8A3414 0%,#3D130C 45%,#190A09 100%)}
+.bg-chimenea .adv-fire{position:absolute;left:-10%;right:-10%;bottom:-60px;height:220px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,140,50,.45),transparent);animation:adv-flick 2.3s ease-in-out infinite}
+@keyframes adv-flick{0%,100%{opacity:.75;transform:scale(1)}30%{opacity:1;transform:scale(1.04)}60%{opacity:.6}80%{opacity:.9;transform:scale(.98)}}
+.bg-chimenea .adv-bg span{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:#FFB347;box-shadow:0 0 6px 2px rgba(255,140,50,.7);animation:adv-rise linear infinite}
+@keyframes adv-rise{0%{transform:translate(0,0);opacity:0}10%{opacity:1}50%{transform:translate(18px,-50vh)}100%{transform:translate(-12px,-100vh);opacity:0}}
+.is-frame.bg-chimenea .adv-bg span{animation-name:adv-rise-f}
+@keyframes adv-rise-f{0%{transform:translate(0,0);opacity:0}10%{opacity:1}50%{transform:translate(18px,-420px)}100%{transform:translate(-12px,-840px);opacity:0}}
+
+/* Bosque */
+.adv-root.bg-bosque{background:linear-gradient(180deg,#0A1726 0%,#0F2A2A 70%,#123326 100%)}
+.bg-bosque .adv-moon{position:absolute;top:40px;right:28px;width:64px;height:64px;border-radius:50%;background:#F4EAD6;box-shadow:0 0 40px 10px rgba(244,234,214,.25),0 0 120px 40px rgba(244,234,214,.08);animation:adv-moon 6s ease-in-out infinite}
+@keyframes adv-moon{50%{box-shadow:0 0 50px 14px rgba(244,234,214,.32),0 0 140px 50px rgba(244,234,214,.1)}}
+.bg-bosque .adv-trees{position:absolute;left:0;right:0;bottom:0;width:100%;height:170px}
+
+/* Luces de Navidad */
+.adv-root.bg-luces{background:#0E1630}
+.bg-luces .adv-wire{position:absolute;left:0;right:0;top:0;height:62px}
+.bg-luces .adv-wire svg{position:absolute;inset:0;width:100%;height:100%}
+.bg-luces .adv-wire span{position:absolute;width:10px;height:15px;margin-left:-5px;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;animation:adv-bulb 2.4s ease-in-out infinite}
+.bg-luces .adv-wire span::before{content:"";position:absolute;left:2px;top:-4px;width:6px;height:5px;border-radius:1px;background:#3A4556}
+@keyframes adv-bulb{0%,100%{opacity:1;box-shadow:0 2px 14px 3px currentColor}50%{opacity:.35;box-shadow:0 0 0 0 transparent}}
+.bg-luces .adv-cal,.bg-luces .adv-gate{padding-top:84px}
+
+/* Cielo estrellado */
+.adv-root.bg-estrellas{background:linear-gradient(180deg,#040917 0%,#0B1630 55%,#18264A 100%)}
+.bg-estrellas .adv-bg span{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:adv-tw 3s ease-in-out infinite}
+.bg-estrellas .adv-shoot{position:absolute;top:70px;left:-20%;width:120px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#fff);transform:rotate(-20deg);opacity:0;animation:adv-shoot 9s ease-in infinite 2s}
+@keyframes adv-shoot{0%{transform:translate(0,0) rotate(-20deg);opacity:0}2%{opacity:1}9%{transform:translate(520px,-190px) rotate(-20deg);opacity:0}100%{opacity:0}}
+
+/* Papel de regalo */
+.adv-root.bg-regalo{background:#7E1620}
+.bg-regalo .adv-bg{background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 18px,transparent 18px 36px),repeating-linear-gradient(-45deg,rgba(224,176,79,.12) 0 2px,transparent 2px 36px);background-size:102px 102px;animation:adv-pan 40s linear infinite}
+@keyframes adv-pan{to{background-position:408px 204px}}
+
+/* ================= PARTÍCULAS ================= */
+.adv-snow{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.adv-snow i{position:absolute;top:-14px;border-radius:50%;background:#fff;animation:adv-fall linear infinite}
+.adv-snow b{position:absolute;top:-18px;display:block;animation:adv-fallh linear infinite}
+.adv-snow b svg{display:block}
+@keyframes adv-fall{0%{transform:translate(0,0)}50%{transform:translate(14px,50vh)}100%{transform:translate(-6px,105vh)}}
+@keyframes adv-fallh{0%{transform:translate(0,0) rotate(-15deg)}50%{transform:translate(-16px,50vh) rotate(15deg)}100%{transform:translate(8px,105vh) rotate(-10deg)}}
+.adv-root.is-frame .adv-snow i{animation-name:adv-fall-f}
+.adv-root.is-frame .adv-snow b{animation-name:adv-fallh-f}
+@keyframes adv-fall-f{0%{transform:translate(0,0)}50%{transform:translate(14px,440px)}100%{transform:translate(-6px,880px)}}
+@keyframes adv-fallh-f{0%{transform:translate(0,0) rotate(-15deg)}50%{transform:translate(-16px,440px) rotate(15deg)}100%{transform:translate(8px,880px) rotate(-10deg)}}
+
+/* ================= CABECERA ================= */
+.adv-cal{padding:44px 20px 40px;display:flex;flex-direction:column;gap:22px;max-width:480px;margin:0 auto}
+.adv-head{display:flex;flex-direction:column;gap:6px;padding:0 4px}
+.adv-kicker{margin:0;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#F2C46D}
+.adv-title{margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:44px;line-height:1}
+.adv-title svg{vertical-align:4px}
+.adv-sub{margin:0;font-size:14px;color:#B7C4D6}
+.bg-chimenea .adv-sub,.bg-regalo .adv-sub{color:#F0D3C4}
+
+/* Tipografías */
+.t-manuscrita .adv-title,.t-manuscrita .adv-num,.t-manuscrita .adv-date,.t-manuscrita .adv-gate h1{font-family:'Caveat',cursive;font-style:normal;font-weight:700}
+.t-manuscrita .adv-num{font-size:30px}.t-manuscrita .w2 .adv-num,.t-manuscrita .h2 .adv-num{font-size:38px}.t-manuscrita .w2.h2 .adv-num{font-size:70px}
+.t-moderna .adv-title,.t-moderna .adv-date,.t-moderna .adv-gate h1{font-family:'DM Sans',sans-serif;font-style:normal;font-weight:600;letter-spacing:-.03em}
+.t-moderna .adv-title{font-size:38px}
+.t-moderna .adv-num{font-family:'DM Sans',sans-serif;font-style:normal;font-weight:600;font-size:22px;letter-spacing:-.03em}
+.t-moderna .w2 .adv-num,.t-moderna .h2 .adv-num{font-size:28px}.t-moderna .w2.h2 .adv-num{font-size:54px}
+
+/* ================= REJILLA Y PUERTAS ================= */
+.adv-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:60px;grid-auto-flow:dense;gap:8px}
+.adv-door{position:relative;border:0;padding:0;margin:0;background:#081321;border-radius:6px;perspective:700px;cursor:pointer;font:inherit;text-align:left;color:inherit}
+.adv-door.w2{grid-column:span 2}.adv-door.h2{grid-row:span 2}
+.adv-inside{position:absolute;inset:0;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#FFE3A3 0%,#F2B24E 55%,#C9782A 100%)}
+.adv-inimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.adv-leaf{position:absolute;inset:0;padding:6px 9px;border-radius:6px;overflow:hidden;background:#16304A;border:1px solid rgba(242,196,109,.38);transform-origin:left center;clip-path:inset(0 0 0 0);transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .6s ease,filter .6s ease,clip-path .75s cubic-bezier(.6,0,.2,1),box-shadow .3s;display:flex;flex-direction:column;justify-content:space-between;backface-visibility:hidden}
+.adv-leaf::after{content:"";position:absolute;right:8px;top:50%;width:4px;height:4px;border-radius:50%;background:#F2C46D;opacity:.7}
+.adv-deco,.adv-shine{position:absolute;inset:0;pointer-events:none;border-radius:inherit}
+.adv-shine{overflow:hidden}
+.adv-shine::before{content:"";position:absolute;top:-30%;bottom:-30%;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-16deg)}
+.adv-num{position:relative;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:26px;line-height:1;color:#F2C46D}
+.w2 .adv-num,.h2 .adv-num{font-size:34px}
+.w2.h2 .adv-num{font-size:64px}
+.adv-lock{width:12px;height:12px;color:rgba(255,255,255,.8);align-self:flex-end;position:relative}
+.adv-orn{position:absolute;top:8px;right:8px;width:15px;height:15px;color:#FF8FA3}
+.w2 .adv-orn,.h2 .adv-orn{width:19px;height:19px}
+.adv-bow{position:absolute;left:50%;top:50%;width:58px;height:34px;margin:-24px 0 0 -29px}
+
+/* --- Aspectos --- */
+.k0 .adv-leaf{background:#A61E2A;border-color:rgba(255,214,150,.45)}.k0 .adv-num{color:#FFE1A8}.k0 .adv-leaf::after{background:#FFE1A8}
+.k1 .adv-leaf{background:#1C5A3F;border-color:rgba(242,196,109,.45)}.k1 .adv-num{color:#F2C46D}
+.k2 .adv-leaf{background:#F4EAD6;border-color:rgba(166,30,42,.3)}.k2 .adv-num{color:#A61E2A}.k2 .adv-leaf::after{background:#A61E2A}
+.k3 .adv-leaf{background:#16304A}
+.k4 .adv-leaf{background:repeating-linear-gradient(135deg,#F4EAD6 0 9px,#C4303A 9px 18px);border-color:rgba(255,255,255,.3)}
+.k4 .adv-num,.k11 .adv-num,.k14 .adv-num{align-self:flex-start;padding:3px 6px 2px;border-radius:4px;background:#F4EAD6;color:#A61E2A}
+.k4 .adv-leaf::after{background:#1C5A3F}
+.k5 .adv-leaf{background:#C9415E;border-color:rgba(255,214,200,.45)}.k5 .adv-num{color:#FFE6DF}.k5 .adv-leaf::after{background:#FFE6DF}
+.k6 .adv-leaf{background:linear-gradient(#E0B04F,#E0B04F) 50% 0/14px 100% no-repeat,linear-gradient(#E0B04F,#E0B04F) 0 50%/100% 14px no-repeat,#A61E2A;border-color:rgba(255,214,150,.45)}
+.k6 .adv-num{color:#FFE1A8}.k6 .adv-leaf::after{display:none}
+/* Oro brillante (animado) */
+.k7 .adv-leaf{background:linear-gradient(135deg,#F8DB83 0%,#D9A535 55%,#B07A22 100%);border-color:rgba(255,244,210,.7)}
+.k7 .adv-num{color:#5A3A08}.k7 .adv-leaf::after{background:#5A3A08}
+.k7 .adv-shine::before,.ready.m-brillo .adv-shine::before,.is-edit .m-brillo .adv-shine::before{animation:adv-shine 3.4s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes adv-shine{0%,55%{left:-70%}100%{left:140%}}
+/* Escarcha (animado) */
+.k8 .adv-leaf{background:linear-gradient(160deg,#EEF7FB,#BCDCEC);border-color:rgba(255,255,255,.85)}
+.k8 .adv-num{color:#1C4E6B}.k8 .adv-leaf::after{background:#1C4E6B}
+.k8 .adv-deco{background:radial-gradient(circle,#fff 1.3px,transparent 1.8px) 0 0/15px 15px,radial-gradient(circle,#fff 1px,transparent 1.5px) 7px 8px/15px 15px;animation:adv-tw 2.6s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes adv-tw{0%,100%{opacity:1}50%{opacity:.2}}
+/* Luces (animado) */
+.k9 .adv-leaf{background:#12243A;padding:10px 12px}
+.k9 .adv-num{color:#F2C46D}.k9 .adv-leaf::after{display:none}
+.k9 .adv-deco{inset:4px;border:3px dotted #FF5A4E;border-radius:4px;animation:adv-bulbs 2.1s steps(1) infinite;animation-delay:var(--dl,0s)}
+@keyframes adv-bulbs{0%{border-color:#FF5A4E}33%{border-color:#F2C46D}66%{border-color:#4FD1C5}}
+/* Jersey */
+.k10 .adv-leaf{background:linear-gradient(135deg,#F4EAD6 25%,transparent 25%) -7px calc(100% - 6px)/14px 14px repeat-x,linear-gradient(225deg,#F4EAD6 25%,transparent 25%) -7px calc(100% - 6px)/14px 14px repeat-x,linear-gradient(#F4EAD6,#F4EAD6) 0 calc(100% - 22px)/100% 2px no-repeat,#B3262E;border-color:rgba(255,255,255,.25)}
+.k10 .adv-num{color:#F4EAD6}.k10 .adv-leaf::after{display:none}
+/* Cuadros escoceses */
+.k11 .adv-leaf{background:repeating-linear-gradient(0deg,rgba(166,30,42,.6) 0 6px,transparent 6px 18px),repeating-linear-gradient(90deg,rgba(166,30,42,.6) 0 6px,transparent 6px 18px),repeating-linear-gradient(0deg,rgba(242,196,109,.25) 0 1px,transparent 1px 9px),#1C5A3F}
+.k11 .adv-leaf::after{display:none}
+/* Nevado */
+.k12 .adv-leaf{background:#1C5A3F;padding-top:15px;border-color:rgba(255,255,255,.4)}
+.k12 .adv-num{color:#F2C46D}
+.k12 .adv-deco{inset:-1px -1px auto -1px;height:15px;border-radius:6px 6px 0 0;background:linear-gradient(#fff,#fff) 0 0/100% 5px no-repeat,radial-gradient(circle at 8px 3px,#fff 7.5px,transparent 8px) 0 0/16px 15px repeat-x;filter:drop-shadow(0 1px 0 rgba(0,0,0,.18))}
+/* Galleta de jengibre */
+.k13 .adv-leaf{background:#9A5B2E;padding:10px 12px;border-color:#7A4422}
+.k13 .adv-num{color:#FFF4E6}.k13 .adv-leaf::after{display:none}
+.k13 .adv-deco{inset:4px;border:2px dashed #FFF4E6;border-radius:5px;opacity:.9}
+/* Menta */
+.k14 .adv-leaf{background:radial-gradient(circle,#E0525C 2px,transparent 2.6px) 0 0/16px 16px,radial-gradient(circle,#E0525C 2px,transparent 2.6px) 8px 8px/16px 16px,#D5EFE2;border-color:rgba(255,255,255,.6)}
+.k14 .adv-num{background:#D5EFE2}.k14 .adv-leaf::after{background:#A61E2A}
+/* Noche estrellada (animado) */
+.k15 .adv-leaf{background:#0F1E3A;border-color:rgba(242,196,109,.3)}
+.k15 .adv-num{color:#F2C46D}
+.k15 .adv-deco{background:radial-gradient(circle,#FFE6A0 1px,transparent 1.5px) 3px 5px/19px 17px;animation:adv-tw 3.2s ease-in-out infinite;animation-delay:var(--dl,0s)}
+.k15 .adv-shine::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,#fff 1px,transparent 1.5px) 12px 11px/23px 21px;animation:adv-tw 2.4s ease-in-out infinite reverse;animation-delay:var(--dl,0s)}
+
+/* Colores de adornos y candados en aspectos claros */
+.k0 .adv-orn,.k5 .adv-orn,.k6 .adv-orn,.k10 .adv-orn{color:#FFE1A8}
+.k2 .adv-orn,.k8 .adv-orn,.k14 .adv-orn,.k7 .adv-orn{color:#B3262E}
+.k2 .adv-lock,.k4 .adv-lock,.k7 .adv-lock,.k14 .adv-lock{color:#5A1016}
+.k8 .adv-lock{color:#1C4E6B}
+
+/* --- Movimientos de la casilla: solo si está desbloqueada y sin abrir (en el editor se ven siempre) --- */
+.ready.m-balanceo,.is-edit .m-balanceo{animation:adv-wig 3.4s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes adv-wig{0%,72%,100%{transform:rotate(0)}78%{transform:rotate(-4deg)}86%{transform:rotate(3deg)}93%{transform:rotate(-1.5deg)}}
+.ready.m-latido,.is-edit .m-latido{animation:adv-beat 1.8s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes adv-beat{0%,40%,100%{transform:scale(1)}15%{transform:scale(1.06)}28%{transform:scale(1.02)}34%{transform:scale(1.05)}}
+.ready.m-flotar,.is-edit .m-flotar{animation:adv-float 3.2s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes adv-float{50%{transform:translateY(-4px)}}
+.ready.m-centelleo,.is-edit .m-centelleo{animation:adv-glint 2.6s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes adv-glint{0%,100%{box-shadow:0 0 0 0 rgba(242,196,109,0)}50%{box-shadow:0 0 22px 3px rgba(242,196,109,.55)}}
+.adv-door.open{animation:none}
+
+/* --- Animaciones al abrir --- */
+.a-voltear .adv-leaf{transform-origin:top center}
+.a-persiana,.a-deslizar{overflow:hidden}
+.adv-door.open.a-bisagra .adv-leaf{transform:rotateY(-112deg);box-shadow:8px 0 18px rgba(0,0,0,.45)}
+.adv-door.open.a-voltear .adv-leaf{transform:rotateX(118deg);box-shadow:0 8px 18px rgba(0,0,0,.45)}
+.adv-door.open.a-persiana .adv-leaf{transform:translateY(-104%)}
+.adv-door.open.a-deslizar .adv-leaf{transform:translateX(104%)}
+.adv-door.open.a-barrido .adv-leaf{clip-path:inset(0 0 0 100%)}
+.adv-door.open.a-desvanecer .adv-leaf{opacity:0;transform:scale(1.25);filter:blur(8px)}
+.adv-door.open.a-caer{z-index:5}
+.adv-door.open.a-caer .adv-leaf{transform-origin:top left;animation:adv-caer 1s cubic-bezier(.5,0,.8,.6) forwards}
+@keyframes adv-caer{0%{transform:none}25%{transform:rotate(14deg)}40%{transform:rotate(9deg)}100%{transform:translateY(240%) rotate(38deg);opacity:0}}
+.adv-door.open.a-explotar{z-index:5}
+.adv-door.open.a-explotar .adv-leaf{animation:adv-pop .65s cubic-bezier(.3,0,.6,1) forwards}
+@keyframes adv-pop{0%{transform:scale(1)}35%{transform:scale(.92)}55%{transform:scale(1.12);opacity:1}100%{transform:scale(1.8);opacity:0;filter:blur(4px)}}
+
+/* Estados */
+.adv-door.locked .adv-leaf{filter:saturate(.4) brightness(.6)}
+.adv-door.locked .adv-leaf::after{display:none}
+.adv-door.today .adv-leaf{box-shadow:0 0 0 2px #F2C46D,0 0 26px rgba(242,196,109,.55);animation:adv-glow 2.6s ease-in-out infinite}
+@keyframes adv-glow{50%{box-shadow:0 0 0 2px #F2C46D,0 0 40px rgba(242,196,109,.85)}}
+.adv-door:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+/* Modo edición */
+.adv-root.is-edit .adv-door{cursor:grab}
+.adv-root.is-edit .adv-door.locked .adv-leaf{filter:none}
+.adv-root.is-edit .adv-door.sel{outline:2px solid #fff;outline-offset:3px;z-index:4}
+.adv-root.is-edit .adv-door.drag{opacity:.35}
+.adv-root.is-edit .adv-door.over{outline:2px dashed #F2C46D;outline-offset:3px}
+
+/* ================= ESTALLIDO AL ABRIR ================= */
+.adv-burst{position:absolute;z-index:7;width:0;height:0;pointer-events:none}
+.adv-burst span{position:absolute;left:0;top:0;display:block;animation:adv-burst 1.25s cubic-bezier(.12,.7,.35,1) forwards;animation-delay:var(--d)}
+.adv-burst span svg{display:block}
+@keyframes adv-burst{0%{transform:translate(-50%,-50%) scale(.3) rotate(0);opacity:1}70%{opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1) rotate(var(--r));opacity:0}}
+
+/* ================= TOAST Y HOJA ================= */
+.adv-toast{position:absolute;z-index:8;left:50%;bottom:36px;transform:translateX(-50%);white-space:nowrap;padding:12px 18px;border-radius:999px;background:#EEF2F7;color:#0B1828;font-size:14px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:adv-toast .4s ease both}
+.adv-overlay{position:absolute;inset:0;z-index:9;background:rgba(4,10,18,.6);display:flex;flex-direction:column;justify-content:flex-end;animation:adv-fadein .3s ease both}
+.adv-sheet{max-height:88%;overflow-y:auto;padding:28px 24px 34px;border-radius:24px 24px 0 0;background:#F7F0E3;color:#1B2533;display:flex;flex-direction:column;gap:16px;animation:adv-up .45s cubic-bezier(.2,.8,.2,1) both;width:100%;max-width:520px;margin:0 auto}
+.adv-sheet-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.adv-date{margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:40px;line-height:1;color:#A25B1B}
+.adv-x{flex-shrink:0;width:44px;height:44px;border:0;border-radius:50%;background:#E9DFCD;color:#1B2533;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.adv-label{margin:0;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#A25B1B}
+.adv-h{margin:0;font-family:'Cormorant Garamond',serif;font-size:28px;line-height:1.2}
+.adv-text{margin:0;font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1.4;white-space:pre-line}
+.t-manuscrita .adv-h,.t-manuscrita .adv-text{font-family:'Caveat',cursive;font-size:26px}
+.t-moderna .adv-h,.t-moderna .adv-text{font-family:'DM Sans',sans-serif}
+.t-moderna .adv-text{font-size:17px;line-height:1.55}
+.t-moderna .adv-h{font-size:22px;font-weight:600;letter-spacing:-.01em}
+.adv-sign{margin:0;font-size:14px;color:#5A6372}
+.adv-img{width:100%;max-height:340px;object-fit:cover;border-radius:14px;display:block}
+.adv-ph{height:200px;border-radius:14px;border:1.5px dashed #C9B79A;display:flex;align-items:center;justify-content:center;color:#6E6252;font-size:14px}
+.adv-btn{display:flex;align-items:center;justify-content:center;height:50px;border:0;border-radius:12px;background:#1B2533;color:#F7F0E3;font:inherit;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none}
+
+/* ================= ENTRADA ================= */
+.adv-gate{padding:96px 32px 40px;display:flex;flex-direction:column;gap:28px;max-width:480px;margin:0 auto;animation:adv-fade .5s ease both}
+.adv-gate-copy{display:flex;flex-direction:column;gap:10px}
+.adv-gate h1{margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:46px;line-height:1.02}
+.adv-gate p{margin:0}
+.adv-gate-text{font-size:15px;line-height:1.5;color:#B7C4D6}
+.adv-form{display:flex;flex-direction:column;gap:10px}
+.adv-form label{font-size:13px;color:#B7C4D6}
+.adv-row{display:flex;gap:8px}
+.adv-form input{flex:1;min-width:0;height:50px;padding:0 16px;border-radius:12px;border:1px solid rgba(242,196,109,.4);background:rgba(16,35,58,.85);color:#EEF2F7;font:inherit;font-size:16px}
+.adv-form input::placeholder{color:#7189A6}
+.adv-form button{height:50px;padding:0 20px;border:0;border-radius:12px;background:#F2C46D;color:#0B1828;font:inherit;font-weight:600;font-size:15px;cursor:pointer}
+.adv-err{font-size:13px;color:#FF9C8A}
+.adv-hints{display:flex;flex-direction:column;gap:10px}
+.adv-hint{padding:12px 14px;border-radius:10px;background:rgba(242,196,109,.12);font-size:14px;line-height:1.45;animation:adv-fade .5s ease both}
+.adv-hint b{color:#F2C46D;font-weight:600}
+.adv-shake{animation:adv-shake .4s}
+
+@keyframes adv-shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes adv-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes adv-toast{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes adv-fadein{from{opacity:0}to{opacity:1}}
+@keyframes adv-up{from{transform:translateY(100%)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.adv-snow,.adv-burst{display:none}.adv-root *{animation-duration:.01s!important;animation-iteration-count:1!important}.adv-leaf{transition-duration:.01s}}
+
+/* ================= SORPRESAS ================= */
+.adv-sur{position:absolute;z-index:6;pointer-events:none;left:0;top:0}
+/* Trineo */
+.adv-santa{width:240px;animation:adv-santa var(--t,10s) linear forwards}
+.adv-santa.rtl{animation-name:adv-santa-r}
+.adv-santa .bob{animation:adv-sbob 1.6s ease-in-out infinite}
+.adv-santa svg{display:block;width:240px;height:auto;filter:drop-shadow(0 0 6px rgba(242,196,109,.75))}
+.adv-santa.rtl svg{transform:scaleX(-1)}
+.adv-santa .nose{animation:adv-nose .8s ease-in-out infinite}
+.adv-santa .trail circle{animation:adv-tw 1s ease-in-out infinite}
+.adv-santa .trail circle:nth-child(2n){animation-delay:-.5s}
+@keyframes adv-santa{from{transform:translate(-260px,var(--y))}to{transform:translate(calc(var(--W) + 30px),calc(var(--y) - 40px))}}
+@keyframes adv-santa-r{from{transform:translate(calc(var(--W) + 30px),var(--y))}to{transform:translate(-260px,calc(var(--y) - 40px))}}
+@keyframes adv-sbob{50%{transform:translateY(-10px) rotate(-2deg)}}
+@keyframes adv-nose{50%{opacity:.4}}
+/* Bola de nieve gigante */
+.adv-ball{width:0;height:0}
+.adv-ball .b{position:absolute;left:-60px;top:-60px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0%,#F1F7FB 40%,#C6DCEA 80%,#A9C6DA 100%);box-shadow:inset -10px -14px 22px rgba(90,130,170,.35);animation:adv-ballin 1.15s cubic-bezier(.55,0,.9,.5) forwards}
+@keyframes adv-ballin{0%{transform:translate(var(--sx),-520px) scale(.25) rotate(0)}100%{transform:translate(0,0) scale(2.4) rotate(220deg)}}
+.adv-ball .s{position:absolute;left:-180px;top:-170px;width:360px;height:340px;opacity:0;transform:scale(.2);animation:adv-splat 3s ease forwards 1.1s}
+.adv-ball .s svg{width:100%;height:100%;filter:drop-shadow(0 6px 12px rgba(0,0,0,.25))}
+@keyframes adv-splat{0%{opacity:1;transform:scale(.3)}8%{transform:scale(1.08)}14%{transform:scale(1)}65%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(140px) scaleY(1.15)}}
+.adv-shake-all{animation:adv-quake .45s ease 1.1s}
+@keyframes adv-quake{20%{transform:translate(-6px,3px)}40%{transform:translate(5px,-4px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-1px)}}
+/* Hombre de jengibre */
+.adv-ginger svg{display:block;width:96px;height:120px}
+.adv-ginger.bottom{animation:adv-peek 5.2s ease-in-out forwards}
+@keyframes adv-peek{0%{transform:translate(var(--x),calc(var(--H) + 10px))}18%,78%{transform:translate(var(--x),calc(var(--H) - 92px))}24%,70%{transform:translate(var(--x),calc(var(--H) - 84px))}100%{transform:translate(var(--x),calc(var(--H) + 10px))}}
+.adv-ginger.left{animation:adv-peekl 5.2s ease-in-out forwards}
+@keyframes adv-peekl{0%{transform:translate(-110px,var(--y)) rotate(90deg)}18%,78%{transform:translate(-22px,var(--y)) rotate(90deg)}100%{transform:translate(-110px,var(--y)) rotate(90deg)}}
+.adv-ginger.right{animation:adv-peekr 5.2s ease-in-out forwards}
+@keyframes adv-peekr{0%{transform:translate(calc(var(--W) + 14px),var(--y)) rotate(-90deg)}18%,78%{transform:translate(calc(var(--W) - 74px),var(--y)) rotate(-90deg)}100%{transform:translate(calc(var(--W) + 14px),var(--y)) rotate(-90deg)}}
+.adv-ginger .arm{transform-origin:66px 52px;animation:adv-wave .5s ease-in-out infinite alternate 1s}
+@keyframes adv-wave{from{transform:rotate(10deg)}to{transform:rotate(-35deg)}}
+.adv-ginger .eyes{animation:adv-blink 3s infinite;transform-origin:48px 30px}
+@keyframes adv-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+/* Pingüino */
+.adv-peng{animation:adv-peng 4.6s cubic-bezier(.3,.1,.6,1) forwards}
+.adv-peng.rtl{animation-name:adv-peng-r}
+.adv-peng svg{display:block;width:130px;height:auto}
+.adv-peng.rtl svg{transform:scaleX(-1)}
+.adv-peng .body{animation:adv-pbob .35s ease-in-out infinite alternate}
+@keyframes adv-peng{from{transform:translate(-150px,calc(var(--H) - 86px))}to{transform:translate(calc(var(--W) + 20px),calc(var(--H) - 86px))}}
+@keyframes adv-peng-r{from{transform:translate(calc(var(--W) + 20px),calc(var(--H) - 86px))}to{transform:translate(-150px,calc(var(--H) - 86px))}}
+@keyframes adv-pbob{to{transform:translateY(-2px) rotate(-1.5deg)}}
+.adv-peng .spray circle{animation:adv-spray .6s linear infinite}
+.adv-peng .spray circle:nth-child(2){animation-delay:-.2s}.adv-peng .spray circle:nth-child(3){animation-delay:-.4s}
+@keyframes adv-spray{from{transform:translate(0,0);opacity:.9}to{transform:translate(-26px,-14px);opacity:0}}
+
+/* Estrella fugaz */
+.adv-comet{animation:adv-comet 2.2s cubic-bezier(.15,.7,.35,1) forwards}
+.adv-comet.rtl{animation-name:adv-comet-r}
+.adv-comet svg{display:block;width:180px;height:auto;filter:drop-shadow(0 0 10px rgba(255,227,142,.9))}
+.adv-comet.rtl svg{transform:scaleX(-1)}
+.adv-comet .head{animation:adv-cspin .7s linear infinite}
+.adv-comet .sparks circle{animation:adv-tw .5s ease-in-out infinite}
+.adv-comet .sparks circle:nth-child(2n){animation-delay:-.25s}
+@keyframes adv-comet{0%{transform:translate(-200px,var(--y)) rotate(14deg);opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translate(calc(var(--W) + 40px),calc(var(--y) + 120px)) rotate(14deg);opacity:0}}
+@keyframes adv-comet-r{0%{transform:translate(calc(var(--W) + 40px),var(--y)) rotate(-14deg);opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translate(-200px,calc(var(--y) + 120px)) rotate(-14deg);opacity:0}}
+@keyframes adv-cspin{to{transform:rotate(90deg)}}
+/* Búho mensajero */
+.adv-owl{animation:adv-owl var(--t,7.5s) linear forwards}
+.adv-owl.rtl{animation-name:adv-owl-r}
+.adv-owl .glide{animation:adv-oglide 1.4s ease-in-out infinite}
+.adv-owl svg{display:block;width:120px;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.3))}
+.adv-owl.rtl svg{transform:scaleX(-1)}
+.adv-owl .wing-f{transform-origin:56px 46px;animation:adv-flap .55s ease-in-out infinite alternate}
+.adv-owl .wing-b{transform-origin:50px 42px;animation:adv-flap .55s ease-in-out infinite alternate-reverse}
+.adv-owl .letter{transform-origin:58px 62px;animation:adv-lsway 1.1s ease-in-out infinite alternate}
+@keyframes adv-owl{from{transform:translate(-140px,var(--y))}to{transform:translate(calc(var(--W) + 30px),calc(var(--y) - 36px))}}
+@keyframes adv-owl-r{from{transform:translate(calc(var(--W) + 30px),var(--y))}to{transform:translate(-140px,calc(var(--y) - 36px))}}
+@keyframes adv-oglide{50%{transform:translateY(-14px)}}
+@keyframes adv-flap{from{transform:rotate(-16deg) scaleY(1)}to{transform:rotate(22deg) scaleY(.65)}}
+@keyframes adv-lsway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+/* Muñeco de nieve */
+.adv-snowm{animation:adv-snowm 5s ease-in-out forwards}
+.adv-snowm svg{display:block;width:110px;height:auto;filter:drop-shadow(0 6px 12px rgba(0,0,0,.28))}
+.adv-snowm .hat{transform-origin:55px 34px;animation:adv-hattip 2s ease-in-out 1.1s 1}
+@keyframes adv-snowm{0%{transform:translate(var(--x),calc(var(--H) + 14px))}18%{transform:translate(var(--x),calc(var(--H) - 118px))}24%,76%{transform:translate(var(--x),calc(var(--H) - 108px))}82%{transform:translate(var(--x),calc(var(--H) - 114px))}100%{transform:translate(var(--x),calc(var(--H) + 14px))}}
+@keyframes adv-hattip{0%,100%{transform:none}35%,60%{transform:translate(8px,-12px) rotate(18deg)}}
+/* Regalo en paracaídas */
+.adv-para{animation:adv-para var(--t,8.5s) linear forwards}
+.adv-para .sway{transform-origin:55px 12px;animation:adv-psway 2.4s ease-in-out infinite alternate}
+.adv-para svg{display:block;width:110px;height:auto;filter:drop-shadow(0 8px 14px rgba(0,0,0,.28))}
+@keyframes adv-para{from{transform:translate(var(--x),-150px)}to{transform:translate(var(--x),calc(var(--H) + 30px))}}
+@keyframes adv-psway{from{transform:rotate(-10deg) translateX(-14px)}to{transform:rotate(10deg) translateX(14px)}}
+/* Reno curioso */
+.adv-deer{animation:adv-deer 4.6s ease-in-out forwards}
+.adv-deer svg{display:block;width:120px;height:auto;transform:rotate(180deg);filter:drop-shadow(0 -4px 10px rgba(0,0,0,.3))}
+.adv-deer .rnose{animation:adv-rnose .65s ease-in-out infinite alternate}
+.adv-deer .ears{transform-origin:60px 48px;animation:adv-etwitch 1.6s ease-in-out infinite}
+@keyframes adv-deer{0%{transform:translate(var(--x),-115px)}20%{transform:translate(var(--x),-10px)}28%,74%{transform:translate(var(--x),-18px)}100%{transform:translate(var(--x),-115px)}}
+@keyframes adv-rnose{from{filter:drop-shadow(0 0 2px #FF3B3B)}to{filter:drop-shadow(0 0 12px #FF3B3B)}}
+@keyframes adv-etwitch{0%,80%,100%{transform:none}88%{transform:rotate(-5deg)}94%{transform:rotate(4deg)}}
+/* Globo de corazón */
+.adv-balloon{animation:adv-balloon var(--t,8s) linear forwards}
+.adv-balloon .drift{animation:adv-bdrift 2.6s ease-in-out infinite alternate}
+.adv-balloon svg{display:block;width:80px;height:auto;filter:drop-shadow(0 8px 14px rgba(224,53,75,.35))}
+@keyframes adv-balloon{from{transform:translate(var(--x),calc(var(--H) + 20px))}to{transform:translate(var(--x),-155px)}}
+@keyframes adv-bdrift{from{transform:translateX(-16px) rotate(-6deg)}to{transform:translateX(16px) rotate(6deg)}}
+
+/* ================= ESCENAS AL ABRIR ================= */
+.adv-scene{position:absolute;inset:0;z-index:8;cursor:pointer;background:radial-gradient(circle at 50% 50%,rgba(8,16,28,.35),rgba(4,10,18,.8));animation:adv-fadein .3s ease both;overflow:hidden}
+.adv-scene.out{animation:sc-out .3s ease forwards}
+@keyframes sc-out{to{opacity:0}}
+.adv-stage{position:absolute;left:50%;top:50%;width:300px;height:340px;margin:-170px 0 0 -150px}
+.adv-stage *{position:absolute}
+.adv-stage svg,.adv-stage svg *{position:static}
+.sc-skip{left:0;right:0;bottom:-60px;text-align:center;font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.06em}
+.sc-word{font-family:'Caveat',cursive;font-weight:700;color:#FFE1A8;text-shadow:0 2px 12px rgba(0,0,0,.4);opacity:0;white-space:nowrap}
+@keyframes sc-pop{0%{opacity:0;transform:scale(0) rotate(-25deg)}60%{opacity:1;transform:scale(1.2) rotate(6deg)}100%{opacity:1;transform:scale(1) rotate(-4deg)}}
+@keyframes sc-fadeout{to{opacity:0}}
+
+/* Beso de Papá Noel */
+.sc-beso .adv-stage{top:auto;bottom:0;margin-top:0}
+.sc-beso .sc-skip{bottom:auto;top:-10px}
+.sc-beso .santa{left:40px;bottom:-40px;width:220px;animation:sc-rise .7s cubic-bezier(.2,1.25,.4,1) both}
+.sc-beso .santa svg{display:block;width:220px;height:auto;animation:sc-tilt 1.2s ease-in-out .7s both}
+@keyframes sc-rise{from{transform:translateY(380px)}}
+@keyframes sc-tilt{50%{transform:rotate(-6deg)}100%{transform:rotate(-3deg)}}
+.sc-beso .wink{transform-box:fill-box;transform-origin:center;animation:sc-wink .45s ease .85s}
+@keyframes sc-wink{50%{transform:scaleY(.1)}}
+.sc-beso .mouth{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:sc-pucker .35s ease 1s forwards}
+@keyframes sc-pucker{to{transform:scale(1)}}
+.sc-beso .kiss{left:128px;top:254px;width:44px;opacity:0;animation:sc-kiss 1.6s cubic-bezier(.3,.6,.4,1) 1.25s forwards}
+.sc-beso .kiss svg{width:44px;height:44px;filter:drop-shadow(0 0 12px rgba(232,71,90,.8))}
+@keyframes sc-kiss{0%{opacity:1;transform:translate(0,0) scale(.3)}35%{transform:translate(-14px,-110px) scale(1.5) rotate(-12deg)}65%{opacity:1;transform:translate(-10px,-150px) scale(2.6) rotate(6deg)}100%{opacity:0;transform:translate(-10px,-170px) scale(4.2)}}
+.sc-beso .muac{left:160px;top:40px;font-size:52px;animation:sc-pop .5s ease 1.4s forwards,sc-fadeout .4s ease 2.5s forwards}
+.sc-beso .mini{width:16px;height:16px;opacity:0;animation:sc-mini 1.2s ease-out forwards}
+@keyframes sc-mini{0%{opacity:0;transform:translate(0,0) scale(.4)}20%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.1)}}
+
+/* Elfo con regalo */
+.sc-elfo .elf{left:10px;top:140px;width:130px;animation:sc-walk 1s cubic-bezier(.3,.7,.4,1) both}
+.sc-elfo .elf svg{display:block;width:130px;height:200px;animation:sc-hop .22s ease-in-out 4 alternate}
+@keyframes sc-walk{from{transform:translateX(-300px)}}
+@keyframes sc-hop{to{transform:translateY(-8px) rotate(2deg)}}
+.sc-elfo .gw{left:82px;top:230px;width:70px;height:62px;animation:sc-walk 1s cubic-bezier(.3,.7,.4,1) both,sc-hopg .22s ease-in-out 4 alternate}
+@keyframes sc-hopg{to{margin-top:-8px}}
+.sc-elfo .gift{left:0;top:0;width:70px;height:62px;animation:sc-offer .75s cubic-bezier(.3,1.4,.5,1) 1.2s forwards}
+@keyframes sc-offer{to{transform:translate(33px,-111px) scale(1.8)}}
+.sc-elfo .lid{animation:sc-lid .6s cubic-bezier(.2,.8,.3,1) 2.05s forwards}
+@keyframes sc-lid{to{transform:translate(26px,-70px) rotate(40deg);opacity:0}}
+.sc-elfo .glow{left:5px;top:-10px;width:60px;height:40px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,227,163,.95),transparent);opacity:0;animation:sc-glowup .8s ease 2.05s forwards}
+@keyframes sc-glowup{to{opacity:1;transform:scale(2.2) translateY(-8px)}}
+.sc-elfo .para{left:96px;top:-40px;font-size:40px;animation:sc-pop .5s ease .9s forwards,sc-fadeout .3s ease 1.6s forwards}
+.sc-gift{width:70px;height:62px}
+.sc-gift .bx{left:4px;right:4px;bottom:0;height:46px;border-radius:4px;background:linear-gradient(#F2C46D,#F2C46D) 50% 0/10px 100% no-repeat,#D7263D;box-shadow:inset 0 -6px 0 rgba(0,0,0,.12)}
+.sc-gift .lid{left:0;right:0;top:4px;height:14px;border-radius:3px;background:linear-gradient(#F2C46D,#F2C46D) 50% 0/10px 100% no-repeat,#E33A4F}
+.sc-gift .lid svg{position:absolute;left:50%;top:-14px;width:36px;height:18px;margin-left:-18px}
+.sc-gift.g2 .bx{background:linear-gradient(#fff,#fff) 50% 0/8px 100% no-repeat,#2F9E6A}.sc-gift.g2 .lid{background:linear-gradient(#fff,#fff) 50% 0/8px 100% no-repeat,#3BB37A}
+.sc-gift.g3 .bx{background:linear-gradient(#D7263D,#D7263D) 50% 0/8px 100% no-repeat,#F2C46D}.sc-gift.g3 .lid{background:linear-gradient(#D7263D,#D7263D) 50% 0/8px 100% no-repeat,#F7D27F}
+.sc-gift.g4 .bx{background:linear-gradient(#F2C46D,#F2C46D) 50% 0/8px 100% no-repeat,#4C6FD1}.sc-gift.g4 .lid{background:linear-gradient(#F2C46D,#F2C46D) 50% 0/8px 100% no-repeat,#5F82E0}
+
+/* Calcetín de regalos */
+.sc-calcetin .drop{left:90px;top:-30px;width:120px;animation:sc-drop .9s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes sc-drop{from{transform:translateY(-520px)}}
+.sc-calcetin .swing{left:0;top:0;width:120px;transform-origin:50px -90px;animation:sc-swing 1s ease-in-out .7s 2 alternate}
+@keyframes sc-swing{0%{transform:rotate(0)}50%{transform:rotate(7deg)}100%{transform:rotate(-5deg)}}
+.sc-calcetin .swing > svg{display:block;width:120px;height:260px;margin-top:-90px}
+.sc-calcetin .pg{left:24px;top:-4px;transform:scale(.55);opacity:0;animation:sc-gout 1s cubic-bezier(.2,.9,.3,1) forwards;animation-delay:var(--d)}
+@keyframes sc-gout{0%{opacity:1;transform:translate(0,30px) scale(.4) rotate(0)}100%{opacity:1;transform:translate(var(--x),var(--y)) scale(var(--s)) rotate(var(--r))}}
+.sc-calcetin .star{width:18px;height:18px;opacity:0;animation:sc-mini 1.1s ease-out forwards;animation-delay:var(--d)}
+.sc-calcetin .lleno{left:0;right:0;top:300px;text-align:center;font-size:36px;animation:sc-pop .5s ease 1.6s forwards}
+
+/* Carta de amor */
+.sc-carta .env{left:50px;top:120px;width:200px;height:130px;perspective:700px;animation:sc-fly .85s cubic-bezier(.2,.9,.3,1.15) both}
+@keyframes sc-fly{from{transform:translate(260px,360px) rotate(50deg) scale(.3)}}
+.sc-carta .back{inset:0;border-radius:6px;background:#E2CFAE;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.sc-carta .letter{left:14px;right:14px;top:8px;height:112px;border-radius:4px;background:#FFFDF8;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;animation:sc-letter .8s cubic-bezier(.2,.9,.3,1) 1.45s forwards}
+.sc-carta .letter *{position:static}
+.sc-carta .letter b{font-family:'Caveat',cursive;font-weight:700;font-size:30px;color:#A61E2A;line-height:1}
+.sc-carta .letter i{display:block;width:110px;height:2px;border-radius:2px;background:#E9DCC6}
+@keyframes sc-letter{60%{transform:translateY(-104px)}100%{transform:translateY(-96px) scale(1.12)}}
+.sc-carta .front{left:0;top:0;width:200px;height:130px;z-index:3}
+.sc-carta .flap{left:0;top:0;width:200px;height:80px;z-index:4;transform-origin:top center;animation:sc-flap .55s ease-in 1s forwards}
+.sc-carta .flap svg{display:block;width:200px;height:80px}
+.sc-carta .seal{left:84px;top:52px;width:32px;height:32px;border-radius:50%;background:#C2253A;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 #8E1626;animation:sc-sealpop .4s ease .8s forwards}
+.sc-carta .seal svg{position:static;width:16px;height:16px}
+@keyframes sc-sealpop{50%{transform:scale(1.3)}100%{transform:scale(0) rotate(30deg);opacity:0}}
+@keyframes sc-flap{0%{transform:rotateX(0)}100%{transform:rotateX(180deg);z-index:1}}
+.sc-carta .mini{width:16px;height:16px;opacity:0;animation:sc-mini 1.3s ease-out forwards;animation-delay:var(--d)}
+
+/* ================= OBJETOS ANIMADOS EN TARJETA ================= */
+.adv-obj{height:146px;border-radius:16px;background:radial-gradient(circle at 50% 54%,rgba(242,196,109,.3),rgba(242,196,109,.06) 62%,transparent 76%);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.adv-obj svg{width:128px;height:128px;display:block;overflow:visible}
+.adv-obj .o-bob{animation:o-bob 2.6s ease-in-out infinite}
+@keyframes o-bob{50%{transform:translateY(-5px)}}
+.adv-obj .o-bounce{transform-origin:60px 108px;animation:o-bounce 2.2s ease-in-out infinite}
+@keyframes o-bounce{0%,100%{transform:scale(1,1) translateY(0)}45%{transform:scale(.97,1.04) translateY(-6px)}60%{transform:scale(1.03,.97) translateY(0)}}
+.adv-obj .o-sway{transform-origin:60px 104px;animation:o-sway 2.8s ease-in-out infinite}
+@keyframes o-sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.adv-obj .o-spark{animation:o-spark 1.8s ease-in-out infinite}
+@keyframes o-spark{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1.08)}}
+.adv-obj .o-steam path{animation:o-steam 2.2s ease-in-out infinite}
+.adv-obj .o-steam path:nth-child(2){animation-delay:-.7s}
+.adv-obj .o-steam path:nth-child(3){animation-delay:-1.4s}
+@keyframes o-steam{0%{transform:translateY(8px);opacity:0}40%{opacity:.85}100%{transform:translateY(-10px);opacity:0}}
+.adv-obj .o-ice1{animation:o-ice 2.2s ease-in-out infinite}
+.adv-obj .o-ice2{animation:o-ice 2.2s ease-in-out infinite -.9s}
+@keyframes o-ice{50%{transform:translateY(-4px) rotate(6deg)}}
+.adv-obj .o-heart{transform-origin:60px 22px;animation:o-heart 2s ease-in-out infinite}
+@keyframes o-heart{0%,100%{transform:translateY(0) scale(.92);opacity:.85}50%{transform:translateY(-6px) scale(1.12);opacity:1}}
+.adv-obj .o-lift{animation:o-lift 2.8s ease-in-out infinite}
+@keyframes o-lift{0%,20%,100%{transform:translateY(0) rotate(0)}55%,70%{transform:translateY(-18px) rotate(-6deg)}}
+.adv-obj .o-glow{animation:o-glow 2.8s ease-in-out infinite}
+@keyframes o-glow{0%,20%,100%{opacity:.25}55%,70%{opacity:.95}}
+.adv-obj .o-pop circle{animation:o-popk 1.8s ease-in-out infinite}
+.adv-obj .o-pop circle:nth-child(2){animation-delay:-.5s}
+.adv-obj .o-pop circle:nth-child(3){animation-delay:-1s}
+@keyframes o-popk{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.adv-obj .o-clink-l{transform-origin:38px 98px;animation:o-clink-l 2.2s ease-in-out infinite}
+.adv-obj .o-clink-r{transform-origin:82px 98px;animation:o-clink-r 2.2s ease-in-out infinite}
+@keyframes o-clink-l{0%,100%{transform:rotate(-8deg)}45%,55%{transform:rotate(10deg)}}
+@keyframes o-clink-r{0%,100%{transform:rotate(8deg)}45%,55%{transform:rotate(-10deg)}}
+.adv-obj .o-flame{transform-origin:60px 48px;animation:o-flame 1.1s ease-in-out infinite alternate}
+@keyframes o-flame{from{transform:scale(1,.96) rotate(-3deg)}to{transform:scale(1.06,1.08) rotate(3deg)}}
+.adv-obj .o-plane{animation:o-plane 3.2s ease-in-out infinite}
+@keyframes o-plane{0%{transform:translate(-10px,6px) rotate(-4deg);opacity:.4}50%{transform:translate(18px,-6px) rotate(4deg);opacity:1}100%{transform:translate(-10px,6px) rotate(-4deg);opacity:.4}}
+
+/* Bola de nieve */
+.sc-bola_nieve .sg-wrap{left:50px;top:60px;width:200px;animation:sc-sg-in .7s cubic-bezier(.2,1.2,.4,1) both,sc-sg-shake .65s ease-in-out .85s 2}
+.sc-bola_nieve .sg-wrap svg{display:block;width:200px;height:220px;filter:drop-shadow(0 16px 28px rgba(0,0,0,.45))}
+@keyframes sc-sg-in{from{transform:translateY(260px) scale(.5);opacity:0}}
+@keyframes sc-sg-shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-11deg) translateX(-8px)}75%{transform:rotate(11deg) translateX(8px)}}
+.sc-bola_nieve .flk{transform-origin:100px 96px;animation:sc-sg-swirl 2.4s ease-in-out .8s both}
+@keyframes sc-sg-swirl{0%{transform:translateY(36px) scale(.8);opacity:.3}35%{transform:translateY(-14px) rotate(120deg) scale(1.05);opacity:1}100%{transform:translateY(26px) rotate(240deg);opacity:.9}}
+.sc-bola_nieve .win{animation:adv-tw 1.2s ease-in-out infinite}
+.sc-bola_nieve .magia{left:0;right:0;top:14px;text-align:center;font-size:48px;animation:sc-pop .5s ease 1.35s forwards}
+.sc-bola_nieve .sg-star{width:16px;height:16px;opacity:0;animation:sc-mini 1.2s ease-out forwards;animation-delay:var(--d)}
+
+/* Fuegos artificiales */
+.sc-fuegos .fw{width:0;height:0}
+.sc-fuegos .fw i{position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 12px 3px var(--c);opacity:0;animation:sc-fw 1.35s cubic-bezier(.15,.75,.3,1) var(--d) forwards}
+@keyframes sc-fw{0%{transform:translate(0,0) scale(.3);opacity:1}65%{opacity:1}100%{transform:translate(var(--x),var(--y)) scale(1.1);opacity:0}}
+.sc-fuegos .fww{left:0;right:0;top:240px;text-align:center;font-size:48px;animation:sc-pop .55s ease 1.1s forwards}
+
+/* Árbol de Navidad */
+.sc-arbol .tr-wrap{left:50px;top:68px;width:200px;animation:sc-tr-in .75s cubic-bezier(.2,1.25,.4,1) both}
+.sc-arbol .tr-wrap svg{display:block;width:200px;height:240px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.45))}
+@keyframes sc-tr-in{from{transform:scale(.2) translateY(200px);opacity:0}}
+.sc-arbol .baub circle{animation:adv-tw 1.2s ease-in-out infinite}
+.sc-arbol .baub circle:nth-child(2n){animation-delay:-.6s}
+.sc-arbol .tr-star{left:127px;top:92px;width:46px;height:46px;opacity:0;animation:sc-tr-star .85s cubic-bezier(.2,1.3,.4,1) .75s forwards}
+.sc-arbol .tr-star svg{filter:drop-shadow(0 0 16px rgba(242,196,109,.95))}
+@keyframes sc-tr-star{0%{opacity:0;transform:translateY(-140px) scale(.4) rotate(-90deg)}100%{opacity:1;transform:translateY(0) scale(1.15) rotate(0)}}
+.sc-arbol .trw{left:0;right:0;top:16px;text-align:center;font-size:44px;animation:sc-pop .5s ease 1.45s forwards}
+
+/* Gatito en caja */
+.sc-gatito .kt-box{left:80px;top:168px;width:140px;height:124px;animation:sc-kt-in .7s cubic-bezier(.2,1.25,.4,1) both}
+@keyframes sc-kt-in{from{transform:translateY(260px) scale(.5);opacity:0}}
+.sc-gatito .kt-box .bx{left:8px;right:8px;bottom:0;height:94px;border-radius:8px;background:linear-gradient(#F2C46D,#F2C46D) 50% 0/18px 100% no-repeat,#D7263D;z-index:3;box-shadow:0 16px 28px rgba(0,0,0,.4)}
+.sc-gatito .kt-box .lid{left:0;right:0;top:14px;height:24px;border-radius:6px;background:linear-gradient(#F2C46D,#F2C46D) 50% 0/18px 100% no-repeat,#E33A4F;z-index:4;animation:sc-kt-lid .65s cubic-bezier(.2,.85,.3,1) .85s forwards}
+.sc-gatito .kt-box .lid svg{position:absolute;left:50%;top:-22px;width:54px;height:27px;margin-left:-27px}
+@keyframes sc-kt-lid{to{transform:translate(56px,-90px) rotate(42deg);opacity:0}}
+.sc-gatito .kt-cat{left:8px;top:24px;width:124px;z-index:2;transform:translateY(42px);opacity:0;animation:sc-kt-pop .75s cubic-bezier(.2,1.35,.4,1) 1s forwards}
+.sc-gatito .kt-cat svg{display:block;width:124px;height:auto}
+@keyframes sc-kt-pop{0%{opacity:0;transform:translateY(48px) scale(.7)}100%{opacity:1;transform:translateY(-64px) scale(1)}}
+.sc-gatito .keyes{transform-origin:70px 66px;animation:adv-blink 2.2s infinite 1.2s}
+.sc-gatito .kears{transform-origin:70px 44px;animation:adv-etwitch 1.4s ease-in-out infinite 1.2s}
+.sc-gatito .ktw{left:0;right:0;top:18px;text-align:center;font-size:48px;animation:sc-pop .5s ease 1.4s forwards}
+.sc-gatito .mini{width:16px;height:16px;opacity:0;animation:sc-mini 1.2s ease-out forwards}
+
+/* Muérdago */
+.sc-muerdago .md-wrap{left:60px;top:-20px;width:180px;transform-origin:90px 0;animation:sc-md-in .8s cubic-bezier(.2,1.25,.4,1) both,sc-md-sw 1.6s ease-in-out .8s infinite alternate}
+.sc-muerdago .md-wrap svg{display:block;width:180px;height:180px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.4))}
+@keyframes sc-md-in{from{transform:translateY(-220px)}}
+@keyframes sc-md-sw{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.sc-muerdago .mdw{left:0;right:0;top:220px;text-align:center;font-size:46px;animation:sc-pop .5s ease 1.05s forwards}
+.sc-muerdago .mini{width:18px;height:18px;opacity:0;animation:sc-mini 1.3s ease-out forwards}
+
+/* ================= MÚSICA DE FONDO ================= */
+.adv-bgm{position:absolute;top:14px;right:14px;z-index:7;width:40px;height:40px;border-radius:50%;border:1px solid rgba(242,196,109,.45);background:rgba(11,24,40,.72);color:#F2C46D;backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.3);transition:transform .2s,background .2s}
+.adv-bgm:hover{transform:scale(1.06);background:rgba(11,24,40,.9)}
+.adv-bgm svg{width:19px;height:19px;display:block}
+.adv-bgm .ic-on{display:none}
+.adv-bgm.on .ic-on{display:block;animation:adv-bgm-pulse 2.2s ease-in-out infinite}
+.adv-bgm.on .ic-off{display:none}
+@keyframes adv-bgm-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+/* ================= REPRODUCTOR DE CANCIÓN EN TARJETA ================= */
+.adv-song{background:linear-gradient(135deg,#1B2533,#2B384B);color:#F7F0E3;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px;box-shadow:0 10px 24px rgba(27,37,51,.18)}
+.adv-song-top{display:flex;align-items:center;gap:16px}
+.adv-vinyl-wrap{position:relative;width:96px;height:74px;flex-shrink:0}
+.adv-cover{position:absolute;left:0;top:0;width:74px;height:74px;border-radius:10px;background:linear-gradient(135deg,#A61E2A,#D9534F);color:#FFE1A8;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(0,0,0,.35);z-index:2}
+.adv-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.adv-cover svg{width:30px;height:30px}
+.adv-vinyl{position:absolute;right:0;top:3px;width:68px;height:68px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#111 0 18%,#262626 19% 21%,#121212 22% 36%,#262626 37% 39%,#141414 40% 60%,#262626 61% 63%,#111 64% 100%);box-shadow:0 4px 12px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;animation:adv-spin 4s linear infinite;animation-play-state:paused;z-index:1}
+.adv-song.playing .adv-vinyl{animation-play-state:running}
+.adv-vinyl-lbl{width:24px;height:24px;border-radius:50%;background:#F2C46D;border:2px solid #A61E2A;overflow:hidden;position:relative}
+.adv-vinyl-lbl img{width:100%;height:100%;object-fit:cover;display:block}
+.adv-vinyl-lbl::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:#111}
+@keyframes adv-spin{to{transform:rotate(360deg)}}
+.adv-song-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.adv-song-t{margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;line-height:1.15;color:#FFF7EA;overflow:hidden;text-overflow:ellipsis}
+.adv-song-a{margin:0;font-size:13px;color:#C7D2E2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adv-eq{display:flex;align-items:flex-end;gap:3px;height:14px;margin-top:4px;opacity:.45}
+.adv-song.playing .adv-eq{opacity:1}
+.adv-eq i{display:block;width:3px;height:4px;border-radius:2px;background:#F2C46D}
+.adv-song.playing .adv-eq i{animation:adv-eq .7s ease-in-out infinite alternate}
+.adv-song.playing .adv-eq i:nth-child(2){animation-delay:-.2s}
+.adv-song.playing .adv-eq i:nth-child(3){animation-delay:-.45s}
+.adv-song.playing .adv-eq i:nth-child(4){animation-delay:-.1s}
+@keyframes adv-eq{from{height:4px}to{height:14px}}
+.adv-song-ctl{display:flex;align-items:center;gap:10px}
+.adv-play{width:38px;height:38px;border-radius:50%;border:0;background:#F2C46D;color:#1B2533;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.adv-play svg{width:16px;height:16px}
+.adv-play .ic-pause{display:none}
+.adv-song.playing .adv-play .ic-play{display:none}
+.adv-song.playing .adv-play .ic-pause{display:block}
+.adv-seek{flex:1;accent-color:#F2C46D;cursor:pointer;margin:0}
+.adv-time{font-size:12px;color:#C7D2E2;font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.adv-song-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;border-radius:10px;background:rgba(255,255,255,.1);color:#FFE1A8;text-decoration:none;font-size:13px;font-weight:500}
+.adv-song-link:hover{background:rgba(255,255,255,.18)}
