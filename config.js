@@ -1,4 +1,4 @@
-/* Contenido del calendario. Generado con editor.html el 19/11/2026, 12:17:56 */
+/* Contenido del calendario. Generado con editor.html el 26/11/2026, 15:23:49 */
 window.CALENDARIO = {
   "anio": 2026,
   "nombre": "Giuli",
@@ -22,6 +22,25 @@ window.CALENDARIO = {
   },
   "dias": [
     {
+      "n": 3,
+      "tam": "1x1",
+      "tono": "nevado",
+      "tipo": "vale",
+      "etiqueta": "",
+      "titulo": "Matcha",
+      "texto": "Tu me hiciste un matcha boyfriend, que menos que agradecertelo con un matcha gratis?",
+      "imagen": "",
+      "firma": "",
+      "boton": "Acepto",
+      "enlace": "",
+      "adorno": "acebo",
+      "movimiento": "balanceo",
+      "apertura": "explotar",
+      "efecto": "confeti",
+      "objeto": "matcha",
+      "escena": "elfo"
+    },
+    {
       "n": 7,
       "tam": "1x1",
       "tono": "rosa",
@@ -36,8 +55,7 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 15,
@@ -54,26 +72,7 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
-    },
-    {
-      "n": 3,
-      "tam": "1x1",
-      "tono": "baston",
-      "tipo": "invitacion",
-      "etiqueta": "",
-      "titulo": "[Plan: cena, paseo, escapada…]",
-      "texto": "[Fecha, hora y lugar]",
-      "imagen": "",
-      "firma": "",
-      "boton": "Acepto",
-      "enlace": "",
-      "adorno": "",
-      "movimiento": "",
-      "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 12,
@@ -90,8 +89,7 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 9,
@@ -108,8 +106,7 @@ window.CALENDARIO = {
       "adorno": "corazon",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 1,
@@ -125,10 +122,10 @@ window.CALENDARIO = {
       "enlace": "https://javawhiskers.co.uk/marylebone",
       "adorno": "corazon",
       "apertura": "persiana",
-      "efecto": "",
+      "efecto": "mezcla",
       "movimiento": "centelleo",
-      "escena": "elfo",
-      "objeto": ""
+      "escena": "gatito",
+      "objeto": "cena"
     },
     {
       "n": 20,
@@ -145,44 +142,26 @@ window.CALENDARIO = {
       "adorno": "corazon",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 5,
       "tam": "1x1",
-      "tono": "crema",
-      "tipo": "mensaje",
+      "tono": "cuadros",
+      "tipo": "vale",
       "etiqueta": "",
-      "titulo": "",
-      "texto": "[Tu mensaje para el día 5]",
-      "imagen": "",
-      "firma": "",
-      "boton": "",
-      "enlace": "",
-      "adorno": "",
-      "movimiento": "",
-      "apertura": "",
-      "efecto": "",
-      "objeto": ""
-    },
-    {
-      "n": 11,
-      "tam": "1x1",
-      "tono": "rojo",
-      "tipo": "invitacion",
-      "etiqueta": "",
-      "titulo": "[Plan: cena, paseo, escapada…]",
-      "texto": "[Fecha, hora y lugar]",
+      "titulo": "Sweet Treat",
+      "texto": "Uno de mis placeres en esta vida es mirar tu sonrisa cada vez que te doy un sweet treat, I LOVE IT",
       "imagen": "",
       "firma": "",
       "boton": "Acepto",
       "enlace": "",
-      "adorno": "corazon",
-      "movimiento": "",
-      "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "adorno": "copo",
+      "movimiento": "flotar",
+      "apertura": "bisagra",
+      "efecto": "estrellas",
+      "objeto": "dulce",
+      "escena": "calcetin"
     },
     {
       "n": 2,
@@ -200,8 +179,41 @@ window.CALENDARIO = {
       "movimiento": "latido",
       "apertura": "desvanecer",
       "efecto": "copos",
-      "escena": "carta",
-      "objeto": ""
+      "escena": "carta"
+    },
+    {
+      "n": 11,
+      "tam": "1x1",
+      "tono": "rojo",
+      "tipo": "invitacion",
+      "etiqueta": "",
+      "titulo": "[Plan: cena, paseo, escapada…]",
+      "texto": "[Fecha, hora y lugar]",
+      "imagen": "",
+      "firma": "",
+      "boton": "Acepto",
+      "enlace": "",
+      "adorno": "corazon",
+      "movimiento": "",
+      "apertura": "",
+      "efecto": ""
+    },
+    {
+      "n": 21,
+      "tam": "1x2",
+      "tono": "verde",
+      "tipo": "mensaje",
+      "etiqueta": "",
+      "titulo": "",
+      "texto": "[Tu mensaje para el día 21]",
+      "imagen": "",
+      "firma": "",
+      "boton": "",
+      "enlace": "",
+      "adorno": "",
+      "movimiento": "",
+      "apertura": "",
+      "efecto": ""
     },
     {
       "n": 22,
@@ -218,26 +230,26 @@ window.CALENDARIO = {
       "adorno": "corazon",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 6,
-      "tam": "1x2",
-      "tono": "crema",
-      "tipo": "foto",
-      "etiqueta": "",
-      "titulo": "",
-      "texto": "[Pie de foto]",
+      "tam": "2x1",
+      "tono": "luces",
+      "tipo": "mensaje",
+      "etiqueta": "Hoy Kitties!",
+      "titulo": "Casi Aniversario",
+      "texto": "Hoy celebramos 2 años juntos (aunque queden unos dias). Quiero decirte que me han encantado, con lo bueno y con lo malo, nos han traido hasta aqui. No sabemos donde nos llevara la vida, pero mientras puede seguir mirando esos ojos y sentir que me miran de vuelta, todo va a estar bien. Te amo giuli",
       "imagen": "",
       "firma": "",
       "boton": "",
       "enlace": "",
-      "adorno": "",
-      "movimiento": "",
-      "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "adorno": "estrella",
+      "movimiento": "balanceo",
+      "apertura": "voltear",
+      "efecto": "corazones",
+      "objeto": "flores",
+      "escena": "beso"
     },
     {
       "n": 14,
@@ -254,8 +266,7 @@ window.CALENDARIO = {
       "adorno": "corazon",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 19,
@@ -272,44 +283,7 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
-    },
-    {
-      "n": 4,
-      "tam": "1x1",
-      "tono": "noche",
-      "tipo": "regalo",
-      "etiqueta": "",
-      "titulo": "[Pista de dónde está escondido]",
-      "texto": "",
-      "imagen": "",
-      "firma": "",
-      "boton": "",
-      "enlace": "",
-      "adorno": "",
-      "movimiento": "",
-      "apertura": "",
-      "efecto": "",
-      "objeto": ""
-    },
-    {
-      "n": 24,
-      "tam": "2x1",
-      "tono": "rojo",
-      "tipo": "regalo",
-      "etiqueta": "",
-      "titulo": "[Pista de dónde está escondido]",
-      "texto": "",
-      "imagen": "",
-      "firma": "",
-      "boton": "",
-      "enlace": "",
-      "adorno": "",
-      "movimiento": "",
-      "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 10,
@@ -326,12 +300,11 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 18,
-      "tam": "2x1",
+      "tam": "1x1",
       "tono": "verde",
       "tipo": "foto",
       "etiqueta": "",
@@ -344,8 +317,49 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
+    },
+    {
+      "n": 4,
+      "tam": "1x1",
+      "tono": "estrellada",
+      "tipo": "cancion",
+      "etiqueta": "Mi Suerte - Morat",
+      "titulo": "",
+      "texto": "Cuando estabamos empezando yo escuchaba Morat a todas horas, principalmente por canciones que me hacian darme cuenta de la suerte que había tenido en encontrarte. Por eso, esta canción me recuerda a ti",
+      "imagen": "",
+      "firma": "",
+      "boton": "",
+      "enlace": "",
+      "adorno": "corazon",
+      "movimiento": "latido",
+      "apertura": "barrido",
+      "efecto": "confeti",
+      "escena": "muerdago",
+      "cancion": {
+        "titulo": "Mi Suerte",
+        "artista": "Morat",
+        "enlace": "https://open.spotify.com/track/2kVtMvrlcK5SRxZvdHgTzn?si=f0512e0666c74756",
+        "audio": "audio/Morat - Mi Suerte.mp3",
+        "portada": "fotos/Screenshot 2026-11-26 112449.png"
+      }
+    },
+    {
+      "n": 24,
+      "tam": "2x2",
+      "tono": "rojo",
+      "tipo": "regalo",
+      "etiqueta": "",
+      "titulo": "[Pista de dónde está escondido]",
+      "texto": "",
+      "imagen": "",
+      "firma": "",
+      "boton": "",
+      "enlace": "",
+      "adorno": "",
+      "movimiento": "",
+      "apertura": "",
+      "efecto": ""
     },
     {
       "n": 23,
@@ -362,8 +376,7 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 16,
@@ -380,12 +393,11 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 8,
-      "tam": "1x1",
+      "tam": "2x1",
       "tono": "rojo",
       "tipo": "regalo",
       "etiqueta": "",
@@ -398,12 +410,11 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 13,
-      "tam": "1x1",
+      "tam": "1x2",
       "tono": "baston",
       "tipo": "mensaje",
       "etiqueta": "",
@@ -416,30 +427,11 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
-    },
-    {
-      "n": 21,
-      "tam": "2x2",
-      "tono": "verde",
-      "tipo": "mensaje",
-      "etiqueta": "",
-      "titulo": "",
-      "texto": "[Tu mensaje para el día 21]",
-      "imagen": "",
-      "firma": "",
-      "boton": "",
-      "enlace": "",
-      "adorno": "",
-      "movimiento": "",
-      "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     },
     {
       "n": 17,
-      "tam": "2x1",
+      "tam": "1x1",
       "tono": "verde",
       "tipo": "mensaje",
       "etiqueta": "",
@@ -452,8 +444,7 @@ window.CALENDARIO = {
       "adorno": "",
       "movimiento": "",
       "apertura": "",
-      "efecto": "",
-      "objeto": ""
+      "efecto": ""
     }
   ],
   "fondo": "nevada",
@@ -474,7 +465,7 @@ window.CALENDARIO = {
     "reno": true,
     "globo": true
   },
-  "escena": "azar",
+  "escena": "calcetin",
   "idioma": "es",
   "musica": {
     "activa": true,

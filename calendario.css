@@ -558,3 +558,7 @@
 .adv-time{font-size:12px;color:#C7D2E2;font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
 .adv-song-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;border-radius:10px;background:rgba(255,255,255,.1);color:#FFE1A8;text-decoration:none;font-size:13px;font-weight:500}
 .adv-song-link:hover{background:rgba(255,255,255,.18)}
+
+/* Botón de exportar vale */
+.adv-btn-vale{gap:8px;background:linear-gradient(135deg,#A61E2A,#C4303A);color:#FFF7EA;box-shadow:0 6px 16px rgba(166,30,42,.28)}
+.adv-btn-vale:hover{filter:brightness(1.06)}

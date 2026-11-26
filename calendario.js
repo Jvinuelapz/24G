@@ -64,7 +64,7 @@
       faltan: function (f, d) { return 'Faltan ' + f + (f === 1 ? ' día' : ' días') + ' para Nochebuena · hoy toca el ' + d; },
       dia: function (n) { return 'Día ' + n; }, bloqueado: ', bloqueado',
       paciencia: function (n) { return 'Paciencia… se abre el ' + n + ' de diciembre'; },
-      cerrar: 'Cerrar', abrir: 'Abrir', etiquetas: { invitacion: 'Invitación', regalo: 'Hay un regalo escondido', vale: 'Vale canjeable', cancion: 'Nuestra canción' }, musicaOn: 'Silenciar música', musicaOff: 'Poner música', reproducir: 'Reproducir', pausar: 'Pausar', escucharEn: 'Escuchar canción',
+      cerrar: 'Cerrar', abrir: 'Abrir', etiquetas: { invitacion: 'Invitación', regalo: 'Hay un regalo escondido', vale: 'Vale canjeable', cancion: 'Nuestra canción' }, musicaOn: 'Silenciar música', musicaOff: 'Poner música', reproducir: 'Reproducir', pausar: 'Pausar', escucharEn: 'Escuchar canción', guardarVale: 'Guardar / Enviar vale', valePara: 'Para', valeDe: 'De', valePie: 'Válido cuando tú quieras ♥', valeListo: '¡Vale guardado!',
       fotoAqui: 'Aquí irá la foto', fotoDel: function (n) { return 'Foto del día ' + n; }, vacio: 'Todavía no hay nada en este día.',
       tituloDef: 'Para ti, {nombre}', gateTitulo: 'Este calendario tiene dueña',
       gateTexto: 'Escribe la contraseña para entrar. Cada intento fallido te da una pista.',
@@ -79,7 +79,7 @@
       faltan: function (f, d) { return f + (f === 1 ? ' day' : ' days') + ' to Christmas Eve · today is the ' + ord(d); },
       dia: function (n) { return 'Day ' + n; }, bloqueado: ', locked',
       paciencia: function (n) { return 'Patience… this one opens on ' + n + ' December'; },
-      cerrar: 'Close', abrir: 'Open', etiquetas: { invitacion: 'Invitation', regalo: 'There’s a hidden present', vale: 'Redeemable voucher', cancion: 'Our song' }, musicaOn: 'Mute music', musicaOff: 'Play music', reproducir: 'Play', pausar: 'Pause', escucharEn: 'Listen to song',
+      cerrar: 'Close', abrir: 'Open', etiquetas: { invitacion: 'Invitation', regalo: 'There’s a hidden present', vale: 'Redeemable voucher', cancion: 'Our song' }, musicaOn: 'Mute music', musicaOff: 'Play music', reproducir: 'Play', pausar: 'Pause', escucharEn: 'Listen to song', guardarVale: 'Save / Send voucher', valePara: 'For', valeDe: 'From', valePie: 'Valid anytime you want ♥', valeListo: 'Voucher saved!',
       fotoAqui: 'Your photo goes here', fotoDel: function (n) { return 'Photo for day ' + n; }, vacio: 'Nothing here yet.',
       tituloDef: 'For you, {nombre}', gateTitulo: 'This calendar belongs to someone special',
       gateTexto: 'Type the password to come in. Every wrong guess gives you a hint.',
@@ -417,7 +417,10 @@
     if (d.titulo) h += '<p class="adv-h">' + esc(d.titulo) + '</p>';
     if (d.texto) h += '<p class="adv-text">' + esc(d.texto) + '</p>';
     if (t === 'mensaje' && (d.firma || cfg.firma)) h += '<p class="adv-sign">— ' + esc(d.firma || cfg.firma) + '</p>';
-    if (d.enlace) h += '<a class="adv-btn" href="' + esc(d.enlace) + '" target="_blank" rel="noopener">' + esc(d.boton || T.abrir) + '</a>';
+    if (t === 'vale') {
+      if (d.enlace) h += '<a class="adv-btn" href="' + esc(d.enlace) + '" target="_blank" rel="noopener">' + esc(d.boton || T.abrir) + '</a>';
+      h += '<button type="button" class="adv-btn adv-btn-vale" data-vale><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span>' + esc((!d.enlace && d.boton) ? d.boton : T.guardarVale) + '</span></button>';
+    } else if (d.enlace) h += '<a class="adv-btn" href="' + esc(d.enlace) + '" target="_blank" rel="noopener">' + esc(d.boton || T.abrir) + '</a>';
     else if (d.boton) h += '<button type="button" class="adv-btn" data-close>' + esc(d.boton) + '</button>';
     if (!h) h = '<p class="adv-text" style="color:#8A8172">' + T.vacio + '</p>';
     return h;
@@ -1007,6 +1010,166 @@
     });
   }
 
+  /* ---------- Exportar vale como imagen PNG (con compartir nativo en móvil) ---------- */
+  function wrapCanvasText(ctx, text, x, y, maxW, lineH, maxLines) {
+    var words = String(text || '').replace(/\n/g, ' \n ').split(/\s+/), line = '', lines = [];
+    for (var i = 0; i < words.length; i++) {
+      if (words[i] === '\n') { lines.push(line.trim()); line = ''; continue; }
+      var test = line ? line + ' ' + words[i] : words[i];
+      if (ctx.measureText(test).width > maxW && line) {
+        lines.push(line);
+        line = words[i];
+      } else line = test;
+    }
+    if (line.trim()) lines.push(line.trim());
+    if (maxLines && lines.length > maxLines) {
+      lines = lines.slice(0, maxLines);
+      lines[maxLines - 1] = lines[maxLines - 1].replace(/\s*\S*$/, '') + '…';
+    }
+    for (var j = 0; j < lines.length; j++) ctx.fillText(lines[j], x, y + j * lineH);
+    return y + lines.length * lineH;
+  }
+
+  function exportarVale(d, cfg, root) {
+    var W = 1000, H = 580;
+    var c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    var ctx = c.getContext('2d');
+
+    // Fondo exterior oscuro elegante
+    var bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#0B1828');
+    bg.addColorStop(1, '#1A2D46');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // Ticket central crema con muescas laterales
+    var pad = 42, tx = pad, ty = pad, tw = W - pad * 2, th = H - pad * 2, r = 24, nr = 26;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,.38)';
+    ctx.shadowBlur = 28;
+    ctx.shadowOffsetY = 12;
+    ctx.beginPath();
+    ctx.moveTo(tx + r, ty);
+    ctx.lineTo(tx + tw - r, ty);
+    ctx.quadraticCurveTo(tx + tw, ty, tx + tw, ty + r);
+    ctx.lineTo(tx + tw, ty + th / 2 - nr);
+    ctx.arc(tx + tw, ty + th / 2, nr, -Math.PI / 2, Math.PI / 2, true);
+    ctx.lineTo(tx + tw, ty + th - r);
+    ctx.quadraticCurveTo(tx + tw, ty + th, tx + tw - r, ty + th);
+    ctx.lineTo(tx + r, ty + th);
+    ctx.quadraticCurveTo(tx, ty + th, tx, ty + th - r);
+    ctx.lineTo(tx, ty + th / 2 + nr);
+    ctx.arc(tx, ty + th / 2, nr, Math.PI / 2, -Math.PI / 2, true);
+    ctx.lineTo(tx, ty + r);
+    ctx.quadraticCurveTo(tx, ty, tx + r, ty);
+    ctx.closePath();
+    ctx.fillStyle = '#F7F0E3';
+    ctx.fill();
+    ctx.restore();
+
+    // Borde dorado interior punteado
+    ctx.save();
+    ctx.strokeStyle = '#C99A3A';
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([8, 7]);
+    ctx.strokeRect(tx + 22, ty + 22, tw - 44, th - 44);
+    ctx.restore();
+
+    // Etiqueta superior + fecha
+    var etq = (d.etiqueta != null && d.etiqueta !== '' ? d.etiqueta : (T.etiquetas.vale || 'VALE CANJEABLE')).toUpperCase();
+    var hasObj = !!(d.objeto && OBJETOS[d.objeto] && OBJETOS[d.objeto].svg);
+    var leftX = tx + 60;
+    var textMaxW = hasObj ? tw - 360 : tw - 120;
+
+    ctx.fillStyle = '#A61E2A';
+    ctx.font = '600 20px "DM Sans", system-ui, sans-serif';
+    ctx.fillText(etq + '  ·  ' + T.fecha(d.n).toUpperCase(), leftX, ty + 78);
+
+    // Línea separadora fina
+    ctx.fillStyle = '#E0D2B8';
+    ctx.fillRect(leftX, ty + 96, textMaxW, 2);
+
+    // Título del vale
+    ctx.fillStyle = '#1B2533';
+    ctx.font = 'italic 600 54px "Cormorant Garamond", Georgia, serif';
+    var nextY = wrapCanvasText(ctx, d.titulo || T.dia(d.n), leftX, ty + 162, textMaxW, 58, 3);
+
+    // Texto / detalles
+    if (d.texto) {
+      ctx.fillStyle = '#4A5568';
+      ctx.font = '400 26px "DM Sans", system-ui, sans-serif';
+      wrapCanvasText(ctx, d.texto, leftX, nextY + 18, textMaxW, 36, 3);
+    }
+
+    // Pie con Para / De y validez
+    var para = cfg.nombre ? (T.valePara + ': ' + cfg.nombre) : '';
+    var de = (d.firma || cfg.firma) ? (T.valeDe + ': ' + (d.firma || cfg.firma)) : '';
+    var meta = [para, de].filter(Boolean).join('   ·   ');
+    ctx.fillStyle = '#8A6B3E';
+    ctx.font = '600 20px "DM Sans", system-ui, sans-serif';
+    if (meta) ctx.fillText(meta, leftX, ty + th - 76);
+
+    ctx.fillStyle = '#A61E2A';
+    ctx.font = 'italic 600 24px "Cormorant Garamond", Georgia, serif';
+    ctx.fillText(T.valePie, leftX, ty + th - 42);
+
+    function finalizar() {
+      var fname = 'vale-dia-' + d.n + '.png';
+      c.toBlob(function (blob) {
+        if (!blob) return;
+        var file = null;
+        try { file = new File([blob], fname, { type: 'image/png' }); } catch (e) {}
+        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file], title: d.titulo || etq }).catch(function (err) {
+            if (err && err.name !== 'AbortError') descargarBlob(blob, fname);
+          });
+        } else {
+          descargarBlob(blob, fname);
+        }
+      }, 'image/png');
+    }
+
+    function descargarBlob(blob, fname) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = fname;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+      if (root) {
+        var old = root.querySelector('.adv-toast'); if (old) old.remove();
+        var t = document.createElement('div');
+        t.className = 'adv-toast'; t.setAttribute('role', 'status');
+        t.textContent = T.valeListo;
+        root.appendChild(t);
+        setTimeout(function () { t.remove(); }, 2000);
+      }
+    }
+
+    if (hasObj) {
+      // Círculo suave a la derecha y dibujo SVG del objeto
+      var cx = tx + tw - 175, cy = ty + th / 2;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, 118, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(242,196,109,0.22)';
+      ctx.fill();
+      ctx.restore();
+
+      var svgStr = OBJETOS[d.objeto].svg;
+      if (svgStr.indexOf('xmlns=') < 0) svgStr = svgStr.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ');
+      var img = new Image();
+      img.onload = function () {
+        ctx.drawImage(img, cx - 98, cy - 98, 196, 196);
+        finalizar();
+      };
+      img.onerror = finalizar;
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+    } else {
+      finalizar();
+    }
+  }
+
   function hoja(root, d, cfg, resolver, alCerrar) {
     idioma(cfg);
     var ov = document.createElement('div');
@@ -1055,6 +1218,7 @@
     }
     function tecla(e) { if (e.key === 'Escape') cerrar(); }
     ov.addEventListener('click', function (e) {
+      if (e.target.closest('[data-vale]')) { exportarVale(d, cfg, root); return; }
       if (e.target === ov || e.target.closest('.adv-x') || e.target.closest('[data-close]')) cerrar();
     });
     document.addEventListener('keydown', tecla);
